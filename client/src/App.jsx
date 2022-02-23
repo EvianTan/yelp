@@ -1,20 +1,22 @@
 import React from 'react';
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from './routes/Home';
 import RestaurantDetailPage from './routes/RestaurantDetailPage';
 import UpdatePage from './routes/UpdatePage';
 
 const App = () => {
-    return <div>
-        <Router>
+    return (
+        <BrowserRouter>
             <Routes>
-                <Route exact path="/" component={Home}></Route>
-                <Route exact path="/restaurants/:id/update" component={UpdatePage}></Route>
-                <Route exact path="/restaurants/:id" component={RestaurantDetailPage}></Route>
+                <Route path="/" element={<Home />}></Route>
+                <Route exact path="/restaurants/:id/update" element={<UpdatePage />}></Route>
+                <Route path="/restaurants/:id" element={<RestaurantDetailPage />}></Route>
             </Routes>
-
-        </Router>
-    </div>;
+        </BrowserRouter>
+            
+        
+        
+    );
 }
 
 export default App;
