@@ -4,8 +4,8 @@ import { useState } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from '../context/RestaurantsContext';
 
-function AddRestaurant() {
-    const {AddRestaurants} = useContext(RestaurantsContext);
+const AddRestaurant = () => {
+    const { addRestaurants } = useContext(RestaurantsContext);
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [priceRange, setPriceRange] = useState("Price Range");
@@ -14,12 +14,12 @@ function AddRestaurant() {
         e.preventDefault()
         try {
             const response = await RestaurantFinder.post("/", {
-                name: name,
-                location: location,
+                name,
+                location,
                 price_range: priceRange
             })
-            AddRestaurants(response.data.data.restaurant);
             console.log(response)
+            addRestaurants(response.data.data.restaurant);
         } catch (error) {
             
         }
@@ -27,7 +27,7 @@ function AddRestaurant() {
 
   return (
     <div className='mb-4'>
-        <form action="">
+        <form onSubmit={handleSubmit} action="">
             <div className="form-group row">
                 <div className="col">
                     <input value={name} onChange={e => setName(e.target.value)} type="text" className='form-control' placeholder='name'/>
@@ -44,7 +44,7 @@ function AddRestaurant() {
                         <option value="4">$$$$</option>
                         <option value="5">$$$$$</option>
                     </select>
-                    <button onClick={handleSubmit} type='submit' className="btn btn-primary">Add</button>                 
+                    <button type='submit' className="btn btn-primary">Add</button>                 
                 </div>
             </div>
         </form>
